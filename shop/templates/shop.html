@@ -1,0 +1,35 @@
+{% extends "./base.html" %}
+
+    {% block content %}
+    <!-- Products Page -->
+    <div class="container">
+        <h1 class="text-center">
+          Purchase Products
+        </h1>
+    </div>
+
+        <!-- List of Products -->
+        {% if products %}
+            <div class="row card-group">
+                {% for product in products %}
+                    <div class="col-4">
+                        <div class="card mt-5">
+                            <img src="{{ product.productURL }}" alt="{{ product.productName }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.productName }}</h5>
+                                <h6>{{ product.productCategory }}</h6>
+                                <p class="card-text">{{ product.productDescription }}</p>
+                                <p class="card-text"><mark>${{ product.productPrice }} </mark></p>
+                                <div class="text-center">
+                                    <a href="" class="btn btn-primary">Add To Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h1 class="text-center">No Products</h1>
+        {% endif %}
+    </div>
+    {% endblock %}

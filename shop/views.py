@@ -37,3 +37,7 @@ def signup(request):
 
     context = {'pageTitle': 'Signup','errors':errors}
     return render(request, 'signup.html',context)
+
+def listProducts(request):
+    context = {'pageTitle': 'Products','products':models.Product.objects.all()}
+    return render(request, 'shop.html',context)
