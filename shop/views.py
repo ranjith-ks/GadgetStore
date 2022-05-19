@@ -50,14 +50,14 @@ def login(request):
     if request.method=='POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = models.Customer.objects.filter(email=email,password=password)
-        if user:
-            print("Successfully logged in")
-            return render(request,'home.html',context)
-        else:
-            print("Failed to log in")
-            context = {'pageTitle': 'Login','errors':['Invalid email or password']}
-            return redirect("home")
+        try:
+            user = models.Customer.objects.get(email=email,password=password)
+            print("Successfully logged in",user)
+            return redirect('home')
+        except:
+            print("Invalid credentials")
+            context = {'pageTitle': 'Login','errors':['Invalid credentials']}
+            return render(request, 'login.html',context)
     return render(request, 'login.html',context)
 
 def listProducts(request):
