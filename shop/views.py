@@ -1,9 +1,12 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.template import loader
 from shop import models
 
 def home(request):
+    template = loader.get_template('home.html')
     context = {'pageTitle': 'Home'}
-    return render(request, 'home.html',context)
+    return HttpResponse(template.render(context))
 
 def signup(request):
     def containsDigit(p):
@@ -33,7 +36,7 @@ def signup(request):
             user = models.Customer(username=username, email=email, password=password)
             user.save()
             print("User created",user)
-            return render(request,'home.html',{'pageTitle':'Home'})
+            return redirect("home")
     
         if len(errors) == 0:
             print("user created successfully")
